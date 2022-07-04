@@ -42,8 +42,8 @@ console.log(importPerson());
 console.log(obj1.importPerson());
 console.log(obj2.importPerson());
 
-const a = function () {
-   console.log('a', this); //window
+const f = function () {
+   console.log('f', this); //window
    const b = function () {
       console.log('b', this) // window
       const c = {
@@ -55,7 +55,7 @@ const a = function () {
    }
    b();
 }
-a();
+f();
 
 const test = {
    name: 'Billy',
@@ -64,7 +64,7 @@ const test = {
       var anotherFun = function() {
          console.log('b', this); //window ( dynamic scope not lexical scope)
       }
-      anotherFun()
+      anotherFun(); //free-function invocation - invoked without any conditions present
    }
 }
 
@@ -78,12 +78,44 @@ var myCar = {
       console.log('In logColor - self.color: ', self.color) //myCar.color = blue
 
 
-         (function () {
-            console.log('In IIFE - this.color: ', this.color) //window.color
-            console.log('In IIFE - self.color: ', self.color) //myCar.color = blue
+         // (function () {
+         //    console.log('In IIFE - this.color: ', this.color) //window.color
+         //    console.log('In IIFE - self.color: ', self.color) //myCar.color = blue
 
-         }());
+         // })();
    }
 }
 
 myCar.logColor()
+
+//-----------------------------------//
+//If the new keyword is used when calling the function, this inside the function is a brand new object.
+function ConstructorExample() {
+   console.log(this); //{}
+   this.value = 10;
+   console.log(this); //{value: 10}
+}
+
+new ConstructorExample();
+
+function fn() {
+   console.log(this);
+}
+
+var acb = {
+   value: 3
+}
+
+var boundFn = fn.bind(acb); 
+boundFn();  // {value: 3}
+fn.apply(acb) //{value: 3}
+fn.call(acb); //{value: 3}
+
+const cameras = {
+   price: 300,
+   weight: 2000,
+   desc: () => {
+      return `My camera's cost is ${this.price}`
+   }
+}
+

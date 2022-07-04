@@ -62,10 +62,12 @@ function Counter() { //constructor function
    }
 }
 
-var counterObj = new Counter(); // creates an object of type Counter
+var counterObj = new Counter(); // returns an Object
 counterObj.incrementCounter();
 
 var counterObj2 = new Counter();
 counterObj2.decrementCounter(); // each object of type Counter is a new instance and will have its own count variable
 
 //Function constructor - If we want to create multiple objects 
+
+//When we create a function through Function Constructor, the prototype property allows us to add our own methods to the Objects

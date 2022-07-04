@@ -6,7 +6,10 @@ b++; //6 -doesn't affect a since they are both not in same location
 console.log(a); // 5
 
 //Pass by reference - we don't copy values, we simply make obj2 to point to the memory location of obj1
-let obj1 = { name: 'Lee', password: '124' };
+let obj1 = {
+   name: 'Lee',
+   password: '124'
+};
 let obj2 = obj1;
 
 obj2.password = 'crackit';
