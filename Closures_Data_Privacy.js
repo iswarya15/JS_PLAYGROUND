@@ -32,7 +32,7 @@ close();
 // HIDE A VARIABLE SO OTHER FUNCTIONS/CODE CANNOT ACCESS IT
 
 function counter() {
-   var count = 0; //any piece of code in our program can access this counter and modify
+   var count = 0; //any piece of code in our program can access this counter and modify if placed in GLE
 
    // We want to ensure that no other function can modify and can only be modified through incrementCounter function. To acheive that we can use closure
    return function incrementCounter() {
