@@ -108,7 +108,7 @@ function Square(length) {
 }
 
 Square.prototype = Object.create(Rectangle.prototype);
-
+//Prototype assigned to all the instances created through this constructor function.
 var sq = new Square(4);
 
 console.log(sq.area())

@@ -24,3 +24,15 @@ var bunnyWithArrow = {
 };
 
 // bunnyWithArrow.showTasks();
+
+function hello() {
+   console.log(this);
+   setTimeout(() => {
+      console.log(this.name);
+   },1000)
+}
+
+var name = 'Eddie';
+
+hello.call({name: 'Joe'})
+
