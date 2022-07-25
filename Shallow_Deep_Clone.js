@@ -1,6 +1,6 @@
 //We want a copy of below object in different location.
 let obj = { a: 'a', b: 'b', c: 'c' };
-let clone = Object.assign({}, obj); //first param - Object to copy to
+let clone = ign({}, obj); //first param - Object to copy to
 //We can also do this using spread operator
 let clone2 = { ...obj };
 
@@ -13,15 +13,15 @@ console.log(clone2);
 //What will happen if we have another pass by reference object in c instead of string 'c'
 //let obj = {a: 'a', b: 'b', c: 'c' };
 
-let deep = { 
-   a: 'a', 
-   b: 'b', 
-   c: { 
-      deep: 'try and copy me' 
-   } 
+let deep = {
+  a: 'a',
+  b: 'b',
+  c: {
+    deep: 'try and copy me'
+  }
 };
 
-let deepClone = Object.assign({},deep);
+let deepClone = Object.assign({}, deep);
 // deep.c = 5; 
 // deep =  {a: 'a', b: 'b', c: 5}
 // deepClone = { a: 'a', b: 'b',

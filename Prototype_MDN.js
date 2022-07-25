@@ -128,3 +128,70 @@ const c = Object.create(B);
 const d = Object.create(null);
 // d -> null
 console.log(d.hasOwnProperty); //undefined, since d doesn't inherit from Object.prototype
+
+//-----------------------------------//
+
+//delete Operator with Object.create and new Operator
+
+(function(){
+   const a = {a: 1};
+   const b = Object.create(a);
+   console.log('b =>',b);
+   console.log(`a.a ${a.a}`);
+   console.log(`b.a ${b.a}`);
+   b.a = 5;
+   console.log(`a.a ${a.a}`);
+   console.log(`b.a ${b.a}`);
+   delete b.a;
+   console.log(`a.a ${a.a}`);
+   console.log(`b.a ${b.a}`);
+   delete a.a
+   console.log(`a.a ${a.a}`);
+   console.log(`b.a ${b.a}`);
+})();
+
+(function () {
+   function Graph() {
+      this.vertices = [4,4];
+   }
+   const g = new Graph(); //creates a instance of Graph
+   console.log(g.vertices);
+   console.log(g.__proto__.vertices); //vertices is g's own property and not inherited
+   delete g.vertices;
+   console.log(g.vertices); //undefined
+})();
+
+//-----------------------------------//
+
+//Performance - Lookup time for properties that are on the bottom of prototype chain can have negative impact on performance, trying to access non-existent property will traverse the full prototype chain 
+
+// To check whether an object has a property defined on itself and not somewhere on its prototype chain, it is necessary to use hasOwnProperty or Object.hasOwn methods
+
+(function () {
+   function Graph() {
+      this.vertices = [4,4];
+   }
+   Graph.prototype.addVertex = function ( ) {
+      this.vertices.push(1);
+   }
+   const g = new Graph(); //creates a instance of Graph
+   console.log(g.vertices);
+   console.log(g.__proto__.vertices); //vertices is g's own property and not inherited
+   console.log(g.hasOwnProperty('vertices'));
+   console.log(Object.hasOwn(g,'vertices'));
+   console.log(g.hasOwnProperty('nope'));
+   console.log(Object.hasOwn(g,'nope'));
+   console.log(g.hasOwnProperty('addVertex'));
+   console.log(g.__proto__.hasOwnProperty('addVertex'));
+   console.log(Object.getPrototypeOf(g).hasOwnProperty('addVertex'));
+})();
+
+function test(fn){
+   let cnt = 0;
+   return function(){
+      cnt++;
+      if(cnt == 1){
+         return fn
+      }
+   }
+}
