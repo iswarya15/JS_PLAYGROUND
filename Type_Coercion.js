@@ -11,7 +11,9 @@ console.log(1 === '1'); //false
 //Coercion doesn't just happen with '=='
 // JS coerces 1 to true. 0 to false
 if (1) {
-   console.log(5);
+  console.log(5);
 }
 
 //https://dorey.github.io/JavaScript-Equality-Table/
+
+// Javascript allows implicit conversion (coercion) between unrelated data types.
