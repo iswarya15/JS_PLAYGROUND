@@ -6,7 +6,7 @@ const randomDate = new Date()
 
 function lastYear() {
    // console.log(year)
-   console.log(this)
+   console.log(this); // new Date Object
    return this.getFullYear() - 1;
 }
 
@@ -19,9 +19,9 @@ console.log(new Date('1910-10-10').lastYear());
 // console.log(Array.prototype.map())
 
 function mapEmoji() {
-   console.log(this);
+   console.log(this); //new Array
    let res = [];
-   for(let i of this) {
+   for (let i of this) {
       res.push(i + '🗺️')
    }
    return res;

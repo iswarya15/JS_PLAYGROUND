@@ -6,11 +6,11 @@ const F = function () {
 
 const o = new F(); // o is an Object - instance of F
 
-console.log('o =>', o);
-
 //Below properties are assigned to all the objects created by F function
 F.prototype.b = 3;
 F.prototype.c = 4;
+
+console.log('o =>', o);
 
 //o.[[Prototype]] has properties b and c
 // o.[[Prototype]].[[Prototype]] is Object.prototype.
@@ -27,14 +27,14 @@ const x = {
       return this.a + 1;
    }
 }
-console.log(x.m());
+console.log('x.m() => ', x.m());
 
 const p = Object.create(x); //inherits methods and props from x
 
 //p.[[Prototype]] has property a and method m
 p.a = 4;
 console.log('p => ', p);
-console.log(p.m());
+console.log('p.m() => ', p.m());
 
 //-----------------------------------//
 
@@ -63,7 +63,7 @@ console.log(doInstancing);
 console.log(`doSomeInstancing.prop => ${doInstancing.prop}`);
 console.log(`doSomeInstancing.foo => ${doInstancing.foo}`);
 console.log(`doSomething.prop => ${doSomething.prop}`);
-console.log(`doSomething.foo => ${doSomething.foo}`);
+console.log(`doSomething.foo => ${doSomething.foo}`);  //undefined!
 console.log(`doSomething.prototype.prop => ${doSomething.prototype.prop}`);
 console.log(`doSomething.prototype.foo => ${doSomething.prototype.foo}`)
 
@@ -91,7 +91,8 @@ function f() {
 // Functions inherit from Function.prototype
 //  f --> Function.prototype --> Object.prototype --> null
 
-const s = { b: 2, __proto__: obj }
+const s = { b: 2, __proto__: obj } //bad practice
+console.log('s => ', s);
 
 //it is possible to point the newly created object's [[Prototype]] to another object via the __proto__ literal property.
 // s --> o --> Object.prototype --> null
@@ -105,11 +106,12 @@ function Graph() {
 }
 
 
-Graph.prototype.addVertex = function(v) {
+Graph.prototype.addVertex = function (v) {
    this.vertices.push(v);
 }
 
 const g = new Graph();
+console.log('g => ', g);
 g.addVertex(1);
 
 //Prototype chain of g 
@@ -119,12 +121,13 @@ g.addVertex(1);
 
 //Object.create method creates a new object. The prototype of this object is the first argument to the function.
 
-const a = {a: 1};
+const a = { a: 1 };
 //a -> Object.prototype -> null
 const B = Object.create(a);
 //B -> a -> Object.prototype -> null
 const c = Object.create(B);
 // c -> B -> a -> Object.prototype -> null
+console.log('c => ', c);
 const d = Object.create(null);
 // d -> null
 console.log(d.hasOwnProperty); //undefined, since d doesn't inherit from Object.prototype
@@ -133,10 +136,10 @@ console.log(d.hasOwnProperty); //undefined, since d doesn't inherit from Object.
 
 //delete Operator with Object.create and new Operator
 
-(function(){
-   const a = {a: 1};
+(function () {
+   const a = { a: 1 };
    const b = Object.create(a);
-   console.log('b =>',b);
+   console.log('b =>', b);
    console.log(`a.a ${a.a}`);
    console.log(`b.a ${b.a}`);
    b.a = 5;
@@ -152,7 +155,7 @@ console.log(d.hasOwnProperty); //undefined, since d doesn't inherit from Object.
 
 (function () {
    function Graph() {
-      this.vertices = [4,4];
+      this.vertices = [4, 4];
    }
    const g = new Graph(); //creates a instance of Graph
    console.log(g.vertices);
@@ -169,28 +172,28 @@ console.log(d.hasOwnProperty); //undefined, since d doesn't inherit from Object.
 
 (function () {
    function Graph() {
-      this.vertices = [4,4];
+      this.vertices = [4, 4];
    }
-   Graph.prototype.addVertex = function ( ) {
+   Graph.prototype.addVertex = function () {
       this.vertices.push(1);
    }
    const g = new Graph(); //creates a instance of Graph
-   console.log(g.vertices);
-   console.log(g.__proto__.vertices); //vertices is g's own property and not inherited
-   console.log(g.hasOwnProperty('vertices'));
-   console.log(Object.hasOwn(g,'vertices'));
-   console.log(g.hasOwnProperty('nope'));
-   console.log(Object.hasOwn(g,'nope'));
-   console.log(g.hasOwnProperty('addVertex'));
-   console.log(g.__proto__.hasOwnProperty('addVertex'));
-   console.log(Object.getPrototypeOf(g).hasOwnProperty('addVertex'));
+   console.log('g.vertices => ', g.vertices);
+   console.log('g.__proto__.vertices => ', g.__proto__.vertices); //vertices is g's own property and not inherited
+   console.log('g.hasOwnProperty("vertices") => ', g.hasOwnProperty('vertices'));
+   console.log('Object.hasOwn(g, "vertices") => ', Object.hasOwn(g, 'vertices'));
+   console.log('g.hasOwnProperty("nope") =>', g.hasOwnProperty('nope'));
+   console.log('Object.hasOwn(g, "nope") =>', Object.hasOwn(g, 'nope'));
+   console.log('g.hasOwnProperty("addVertex") => ', g.hasOwnProperty('addVertex'));
+   console.log('g.__proto__.hasOwnProperty("addVertex") => ', g.__proto__.hasOwnProperty('addVertex'));
+   console.log('Object.getPrototypeOf(g).hasOwnProperty("addVertex") => ', Object.getPrototypeOf(g).hasOwnProperty('addVertex'));
 })();
 
-function test(fn){
+function test(fn) {
    let cnt = 0;
-   return function(){
+   return function () {
       cnt++;
-      if(cnt == 1){
+      if (cnt == 1) {
          return fn
       }
    }

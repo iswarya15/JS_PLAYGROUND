@@ -12,7 +12,7 @@ let dragon = {
 }
 
 let lizard = {
-   name: 'Vicky',
+   name: 'panda',
    fight() {
       return 1;
    }
@@ -24,7 +24,7 @@ console.log(singLizard()); //undefined
 //Let's create a prototype chain
 
 lizard.__proto__ = dragon; //not the correct way to inherit
-console.log(lizard.sing())
+console.log('lizard.sing() => ', lizard.sing());
 console.log(lizard.fire)
 console.log(lizard.fight()) // returns 1
 
@@ -87,7 +87,7 @@ var benz = new Car();
 
 benz.drive();
 
-function Rectangle (width,height) {
+function Rectangle(width, height) {
    this.width = width;
    this.height = height;
    this.getParams = function () {
@@ -96,11 +96,11 @@ function Rectangle (width,height) {
    }
 }
 
-Rectangle.prototype.area = function() {
+Rectangle.prototype.area = function () {
    return this.width * this.height;
 }
 
-var rect = new Rectangle(3,4);
+var rect = new Rectangle(3, 4);
 rect.getParams();
 
 function Square(length) {
@@ -108,7 +108,11 @@ function Square(length) {
 }
 
 Square.prototype = Object.create(Rectangle.prototype);
+Square.prototype.getHeight = function () {
+   return this.height;
+}
 //Prototype assigned to all the instances created through this constructor function.
 var sq = new Square(4);
-
-console.log(sq.area())
+// sq => Square => Rectangle => Object => null
+console.log(sq);
+console.log(sq.area());
