@@ -18,20 +18,20 @@ const expected = theSecret;
 console.log(actual, expected);
 //-----------------------------------//
 
-const partialApply = (fn,...fixedArgs) => {
+const partialApply = (fn, ...fixedArgs) => { // (fn, [1])
 
-   return function(...remainingArgs) {
-      return fn.apply(this,fixedArgs.concat(remainingArgs));
+   return function (...remainingArgs) {
+      return fn.apply(this, fixedArgs.concat(remainingArgs)); // (this, [1,2])
    }
 
 }
 const text = 'partialApply should partially apply functions';
-const add = (a,b) => a+b;
+const add = (a, b) => a + b;
 
 const add1 = partialApply(add, 1); //returns a function which retains access to fixedArgs
 
 const ans = add1(2);
-console.log(ans);
+console.log(ans); // 3
 
 //-----------------------------------//
 
@@ -46,17 +46,17 @@ let wrap2 = wrapValue(2);
 //-----------------------------------//
 const counter = (function () {
    let privateCounter = 0;
-   function changeBy(val){
+   function changeBy(val) {
       privateCounter += val;
    }
    return {
-      increment: function() {
+      increment: function () {
          changeBy(1);
       },
-      decrement: function() {
+      decrement: function () {
          changeBy(-1);
       },
-      value: function() {
+      value: function () {
          return privateCounter;
       }
    }

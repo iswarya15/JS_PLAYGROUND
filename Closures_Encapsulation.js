@@ -46,7 +46,7 @@ function createStackClosure() {
 
    return {
       push: function (item) {
-         items.push(item);
+         items.push(item); //access items from closure(createStackClosure)
       },
       pop: function () {
          items.pop();
@@ -65,8 +65,8 @@ stackWithClosure.items; // undefined
 //We can push/pop but we don't have permission to access items.
 //-----------------------------------//
 function multiply(num1) {
-   return function(num2) {
-      console.log(num1*num2);
+   return function (num2) {
+      console.log(num1 * num2);
    }
 }
 

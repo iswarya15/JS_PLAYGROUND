@@ -37,7 +37,7 @@ function counter() {
    // We want to ensure that no other function can modify and can only be modified through incrementCounter function. To acheive that we can use closure
    return function incrementCounter() {
       count++;
-      console.log('Count =>',count)
+      console.log('Count =>', count)
    }
 }
 
@@ -51,10 +51,10 @@ counter2();
 
 //Function constructor in js
 function Counter() { //constructor function
-   var count = 0;
+   count = 0;
    this.incrementCounter = function () { // this keyword refers to the object which is calling this method
       count++;
-      console.log('Incremented ',count);
+      console.log('Incremented ', count);
    }
    this.decrementCounter = function () { //function within Counter forms a closure with its outer lexical environment
       count--;
@@ -64,10 +64,9 @@ function Counter() { //constructor function
 
 var counterObj = new Counter(); // returns an Object
 counterObj.incrementCounter();
-
 var counterObj2 = new Counter();
 counterObj2.decrementCounter(); // each object of type Counter is a new instance and will have its own count variable
 
-//Function constructor - If we want to create multiple objects 
+//Function constructor - If we want to create multiple objects
 
 //When we create a function through Function Constructor, the prototype property allows us to add our own methods to the Objects

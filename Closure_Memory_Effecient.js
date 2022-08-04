@@ -12,19 +12,21 @@ function a() { // a => HOF since it returns another function
 console.log(a()()());
 
 //-----------------------------------//
-// function boo() {
-//    return function (name) {
-//       return function (name2) {
-//          console.log(`${name} ${name2}`)
-//       }
-//    }
-// }
 
 //Cleaner way using Arrow function
 
-const boo = (greet) => (name) => (name2) => console.log(`${greet} ${name} ${name2}`);
+const booArrow = (greet) => (name) => (name2) => console.log(`${greet} ${name} ${name2}`);
+
+function boo(greet) {
+   return function (name) {
+      return function (name2) {
+         console.log(`${greet} ${name} ${name2}`);
+      }
+   }
+}
 
 boo('Hi')('Captain')('America');
+booArrow('Hello')('Wanda')('Vision')
 
 function callMeMaybe() {
    const callMe = 'Hi! I am now here';
@@ -58,9 +60,9 @@ console.log('Using Closure', getHeavyDutyWithClosure(100));
 function heavyDuty2() {
    const bigArray = new Array(2000).fill('Hi');
    console.log('Created Again!!');
-   // We created bigArray once, and we passed it to the Closure scope. So it can refer. 
+   // We created bigArray once, and we passed it to the Closure scope. So it can refer.
    return function (index) { //index is passed when this is invoked
-      return bigArray[index]; 
+      return bigArray[index];
    }
 }
 
