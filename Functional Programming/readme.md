@@ -1,8 +1,21 @@
-## Functional Programming
+# Functional Programming
 
 ## Pure Functions
 
 `Pure Functions` cannot modify anything outside of itself(No Side-effects). They _do not change any data passed into them_, but create _new data to return_ without altering the original.
+
+**Side Effect**: **change of system state or any observable interaction** with outside world that occurs during the calculation of a result.
+
+### Side effect may include
+
+- changing the file system
+- inserting a record into a database
+- making an http call
+- mutations
+- printing to the screen / logging
+- obtaining user input
+- querying the DOM
+- accessing system state
 
 ### Pure Functions does the following:
 
@@ -26,11 +39,11 @@ This is important in `Functional Programming` because our code needs to be **mor
 
 <!-- More Imperative -->
 
-```
-let arr = [1,2,3];
+```js
+let arr = [1, 2, 3];
 
-for(let i = 0 ; i < arr.length ; i++) {
-    console.log(arr[i]);
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i]);
 }
 ```
 
@@ -44,18 +57,18 @@ for(let i = 0 ; i < arr.length ; i++) {
 
 In the below example, we are `modifying state(count)` outside of it's function scope.
 
-```
+```js
 const closure = () => {
-    let count = 0;
-    return () => {
-        count++;
-        return count;
-    }
-}
+  let count = 0;
+  return () => {
+    count++;
+    return count;
+  };
+};
 
 const incrementFun = closure();
 
-console.log('Incrementing Counter via Closure => ', incrementFun());
+console.log("Incrementing Counter via Closure => ", incrementFun());
 ```
 
 `incrementFun` is an `impure function` since it _modifies the closed over variable_.
@@ -91,29 +104,30 @@ Producing a function with a smaller number of parameters.
 
 `Partial Application` expects _all the arguments_ in the second call
 
-```
-const add = (a, b, c) => console.log('Adding using Partial Application => ', a + b + c);
+```js
+const add = (a, b, c) =>
+  console.log("Adding using Partial Application => ", a + b + c);
 
-    const partialAdditionBy2 = add.bind(null, 2);
-    console.log(partialAdditionBy2);
+const partialAdditionBy2 = add.bind(null, 2);
+console.log(partialAdditionBy2);
 
-    partialAdditionBy2(4, 6);
+partialAdditionBy2(4, 6);
 ```
 
 ## Memoization
 
 If the `parameter` of a function _doesn't change_, its **memoized/cached**. Hence returns a cached version.
 
-```
+```js
 function memoizedAddTo80(n) {
-    if (n in cache) {
-        console.log('Cached Input', n);
-        return cache[n];
-    } else {
-        console.log('Long time...', n);
-        cache[n] = n + 80;
-        return cache[n];
-    }
+  if (n in cache) {
+    console.log("Cached Input", n);
+    return cache[n];
+  } else {
+    console.log("Long time...", n);
+    cache[n] = n + 80;
+    return cache[n];
+  }
 }
 ```
 
@@ -123,21 +137,22 @@ function memoizedAddTo80(n) {
 
 f: `accumulator` , g: `currentFun`
 
-```
-const compose = (f, g) => (...args) => {
-    console.log('F => ', f);
-    console.log('G => ', g);
-    f(g(...args))
-};
+```js
+const compose =
+  (f, g) =>
+  (...args) => {
+    console.log("F => ", f);
+    console.log("G => ", g);
+    f(g(...args));
+  };
 
 function purchaseItem(...funs) {
-    return funs.reduce(compose)
+  return funs.reduce(compose);
 }
 
 const composedFun = purchaseItem(emptyCart, buyItem, applyTax, addItemToCart);
 
-console.log(composedFun(user, new Item('jacket', 20)));
-
+console.log(composedFun(user, new Item("jacket", 20)));
 ```
 
 ### Order of execution
@@ -146,3 +161,11 @@ console.log(composedFun(user, new Item('jacket', 20)));
 2. emptyCart(buyItem(applyTax))
 3. emptyCart(buyItem)
 4. emptyCart
+
+### Tips to write Pure functions:
+
+- They are self contained. Everything the function needs is handed to it on a silver platter.
+
+- It does not depend on **System State** because it increases [cognitive load](https://en.wikipedia.org/wiki/Cognitive_load) by introducing an _external environment_.
+
+> "The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana... and the entire jungle".
