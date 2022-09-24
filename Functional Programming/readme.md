@@ -90,7 +90,9 @@ Now we still have access to data outside it's scope.
 
 ## Currying
 
-In the below curried function, we are _passing one parameter at a time_.
+We can call a function with `fewer arguments` than it _expects_. It _returns a function_ that takes the `remaining arguments`.
+
+In the below example, we have created a function that takes one argument and returns a function.The `returned function` remembers the first argument via **Closure**.
 
 ```
 const curriedMultiply = (a) => (b) => a * b;
@@ -100,7 +102,7 @@ console.log('Multiply a number using Currying: ', curriedMultiply(3)(5))
 
 ## Partial Application
 
-Producing a function with a smaller number of parameters.
+We take a function and _create a new function_ with one or more arguments **set/partially applied**.
 
 `Partial Application` expects _all the arguments_ in the second call
 
@@ -113,6 +115,10 @@ console.log(partialAdditionBy2);
 
 partialAdditionBy2(4, 6);
 ```
+
+### Currying vs Partial Application:
+
+`Currying`: The number of curried/nested function depends on the number of the arguments.
 
 ## Memoization
 
