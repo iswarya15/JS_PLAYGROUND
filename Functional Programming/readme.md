@@ -28,7 +28,7 @@ The goal of `Functional programming` is _not to make_ `functions pure` but to _m
 
 ## Idempotence
 
-Given the _same input_ to a function, it always _returns the same output_. The function could be _used over and over again_ and nothing changes. Another way to make code predictable.
+A function is said to be `idempotent` if it _returns the same output for the same input_ or does what we expect it to do. Idempotence is _different from pure function_ as it `allows side effects`. An example could be calling an API with an input and returning the same output no matter how many times it has been called.
 
 ## Imperative vs Declarative
 
@@ -90,7 +90,7 @@ Now we still have access to data outside it's scope.
 
 ## Currying
 
-We can call a function with `fewer arguments` than it _expects_. It _returns a function_ that takes the `remaining arguments`.
+Currying calls a function by providing `fewer arguments` than it _expects_. It _returns a function_ that takes the `remaining/next arguments`.
 
 In the below example, we have created a function that takes one argument and returns a function.The `returned function` remembers the first argument via **Closure**.
 
@@ -102,7 +102,7 @@ console.log('Multiply a number using Currying: ', curriedMultiply(3)(5))
 
 ## Partial Application
 
-We take a function and _create a new function_ with one or more arguments **set/partially applied**.
+We call a function with fewer arguments which _returns a new function_ with those arguments **set/partially applied**.
 
 `Partial Application` expects _all the arguments_ in the second call
 
@@ -118,7 +118,7 @@ partialAdditionBy2(4, 6);
 
 ### Currying vs Partial Application:
 
-`Currying`: The number of curried/nested function depends on the number of the arguments.
+What is not in common: Currying takes only one parameter, unlike partial application which can take more than one.
 
 ## Memoization
 
@@ -175,3 +175,48 @@ console.log(composedFun(user, new Item("jacket", 20)));
 - It does not depend on **System State** because it increases [cognitive load](https://en.wikipedia.org/wiki/Cognitive_load) by introducing an _external environment_.
 
 > "The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana... and the entire jungle".
+
+## Compose:
+
+Function composition is an approach where the result of one function is passed on to the next function, which is passed to another until the final function is executed for the final result. Function compositions can be composed of any number of functions. Calls functions from `right to left`.
+
+Using `Compose`, we _don't have to call our function manually_. Instead we can feed our _functions to another function_ which will _give back a function to call our functions_.
+
+## Pipe
+
+The concept of `Pipe` is simple. It combines n functions & calls them from `left to right` with the output of the last function.
+
+[Pipe & Compose Explained](https://www.freecodecamp.org/news/pipe-and-compose-in-javascript-5b04004ac937)
+
+## Immutability
+
+Cannot change Immutable data, we need to make a copy of the data and then update it.
+
+Making a variable type `const` makes it _impossible to re-assign_ after it's creation but does _not create immutable objects_.
+
+```js
+const boo = { foo: true };
+boo.foo = false;
+console.log(boo); // false
+```
+
+We can make an `Object` truly `immutable` by **freezing the Object**. JS has a method that freezes the Object.
+
+```js
+const immutableBoo = Object.freeze({ foo: true }); //Primitive property
+immutableBoo.foo = false;
+
+console.log("Immutable Boo =>", immutableBoo);
+```
+
+But `frozen objects` are **only immutable one level deep**.
+
+```js
+const obj = Object.freeze({ foo: { bar: true } }); //property consist of an object
+obj.foo.bar = false;
+console.log("Obj =>", obj); // { foo: { bar: false} }
+```
+
+The _primitive properties_ of a `frozen Object` cannot change but if the _property is itself an Object_, it can be changed.
+
+In order to make an object really immutable you need some _external libraries_. `Immutable.js` is among the most used `libraries`.

@@ -36,19 +36,51 @@ const multiply = evaluate('multiply');
 console.log('evaluate("multiply")(5)(8) => ', multiply(5)(8));
 console.log('evaluate("multiply")(3)(2) => ', multiply(3)(2)); //we're not re-initializing the variable multiply
 
-// Qn 3: Implement Infinite Currying
+// Qn 3: Implement Infinite Currying: sum(1)(2)(3)(4)...(n)()
 
 function add(a) {
     return function (b) {
         if (b) {
             return add(a + b);
-        } else {
-            return a;
         }
+        return a;
+
     }
 }
 
 console.log('Infinite Currying...')
 console.log('add(1)(2)(3)(4)() => ', add(1)(2)(3)(4)());
 
-// Manipulating DOM using Currying
+// Qn 4: Manipulating DOM using Currying
+
+function updateElementText(id) {
+    return function (content) {
+        // document.querySelector("#" + id).textContent = content;
+    }
+}
+
+const updateHeaderText = updateElementText('heading');
+updateHeaderText('Updated DOM using Currying'); //we don't have to provide the heading selector each time
+
+// Qn 5: Implement Curry()
+// Convert fn(a,b,c) => fn(a)(b)(c)
+
+function curry(fn) {
+    return function curried(...args) {
+
+        if (fn.length === args.length) {
+            return fn(...args);
+        } else {
+            return function (...args2) {
+                return curried.apply(this, args.concat(args2));
+            }
+        }
+
+    }
+}
+
+const addition = (a, b, c) => a + b + c;
+
+const curriedAddition = curry(addition);
+
+console.log('Curry() => ', curriedAddition(1)(8)(3));

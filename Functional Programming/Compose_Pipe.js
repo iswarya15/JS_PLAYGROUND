@@ -24,3 +24,52 @@ const AbsAndMultiply = pipe(multiplyBy3, makePositive); //Left to Right evaluati
 console.log(AbsAndMultiply(-50));
 
 // multiplyBy3 executes first, then makePositive
+
+
+// Let's compose the below functions
+// sayHi -> 'Hi' -> sayHiWithName -> 'Hi Viserys' -> sayHiWithNameAndGreet -> 'Hi Viserys Good morning'
+
+const sayHi = () => 'Hi';
+
+const sayHiWithName = () => 'Viserys';
+
+const sayHiWithNameAndGreet = () => 'Good Morning';
+
+const greetPerson = pipeFun(sayHi, sayHiWithName, sayHiWithNameAndGreet);
+
+function pipeFun(...steps) {
+    return function () {
+        let res = ''
+        for (let i = 0; i < steps.length; i++) {
+            res = res + ' ' + steps[i]();
+        }
+        return res;
+    }
+}
+
+
+const sayHiPerson = pipeFun(sayHi, sayHiWithName)
+console.log(sayHiPerson())
+
+const composeTwoFun = (fn1, fn2) => (...args) => fn2(fn1(...args));
+
+const multiplyBy10 = (num) => num * 10;
+const absolute = (num) => Math.abs(num);
+
+const composedFun = composeTwoFun(absolute, multiplyBy10);
+
+console.log('MultiplyBy10 and Absolute => ', composedFun(-4))
+
+// Pipe
+
+const getName = person => person.name;
+const upperCase = string => string.toUpperCase();
+const getSixChars = string => string.substring(0, 6);
+
+const pipeFn = (f, g) => (...args) => g(f(...args));
+const reducedFn = (...fns) => fns.reduce(pipeFn);
+
+// Pipe calls the function left to right
+console.log(reducedFn(getName, upperCase, getSixChars)({ name: 'ToothLess' }));
+
+// getSixChars(upperCase(getName({name:'Buckethead'})))
