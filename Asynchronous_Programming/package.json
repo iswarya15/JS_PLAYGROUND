@@ -1,0 +1,16 @@
+{
+    "name": "asynchronous_programming",
+    "version": "1.0.0",
+    "description": "JS → JS Engine ( v8, SpiderMonkey, Chakra) → Computer (Machine code). There are many JS Engines created by the `browser Vendors`.",
+    "main": "Async_Await.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "rxjs": "^7.8.0"
+    },
+    "type": "module"
+}
