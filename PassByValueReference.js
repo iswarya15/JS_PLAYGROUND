@@ -7,12 +7,12 @@ console.log(a); // 5
 
 //Pass by reference - we don't copy values, we simply make obj2 to point to the memory location of obj1
 let obj1 = {
-   name: 'Lee',
-   password: '124'
+  name: "Lee",
+  password: "124",
 };
 let obj2 = obj1;
 
-obj2.password = 'crackit';
+obj2.password = "crackit";
 
 console.log(obj1);
 console.log(obj2);
@@ -27,3 +27,14 @@ console.log(d);
 console.log(c);
 
 //Refer Shallow_Deep_Clone.js on how to clone object and store them in different location
+
+let arr = [1, 2, 3];
+
+function modify(pByRef) {
+  // passing the reference to the location where the arr is held rather the value
+  pByRef[0] = 4;
+  console.log("Within modify fun: ", pByRef);
+}
+
+modify(arr);
+console.log("After modifying : ", arr);

@@ -1,10 +1,11 @@
-// Function expression
+// Function expression - not a function declaration
 (function () {
-   console.log('IIFE!');
-   var a = 1;
-}());
+  console.log("IIFE!");
+  var a = 1;
+})();
 
-{/* <script>
+{
+  /* <script>
       var z = 1;
       var script1 = (function () {
         function a() {
@@ -19,4 +20,5 @@
       function a() {
         return "ehheeheh";
       }
-    </script> */}
+    </script> */
+}
