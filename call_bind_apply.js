@@ -32,7 +32,7 @@ printFullName.call(name2, "Mars", "Galaxy");
 
 printFullName.apply(name2, ["Venus", "Satellite"]);
 
-//Bind method - Instead of directly calling the method, bind method creates a copy of the method with the the object that we want to use and will return the function.
+//Bind method - bind method creates a copy of the method with the the object that we want to use and will return the function.
 //which can be invoked later
 
 let printMyName = printFullName.bind(name2, "Texas", "Florida");
