@@ -8,7 +8,6 @@ function x() {
 
 x();
 
-
 function fn() {
   var a = 7;
   function y() {
@@ -43,8 +42,8 @@ function s() {
   var i = 1;
   setTimeout(() => {
     console.log(i);
-  }, 1000)
-  console.log('Namaste')
+  }, 1000);
+  console.log("Namaste");
 }
 s();
 
@@ -52,14 +51,15 @@ s();
 
 function m() {
   for (var i = 1; i <= 5; i++) {
-    function close(i) {  //using closure to refer to different copies of i
+    function close(x) {
+      //using closure to refer to different copies of i
       setTimeout(() => {
-        console.log(i)
-      }, i * 1000)
+        console.log(x);
+      }, i * 1000);
     }
     close(i);
   }
-  console.log('Namaste')
+  console.log("Namaste");
 }
 
 m();
